@@ -82,7 +82,7 @@ public class Blockchain {
 	 * @return true if the block is valid, false otherwise
 	 */
 	public boolean validateBlock(Block block) {
-		return block.calculateBlockHash().equals(block.getHash())
+		return block != null && block.calculateBlockHash().equals(block.getHash())
 				&& block.getHash().substring(0, difficulty).equals(prefixString);
 	}
 	

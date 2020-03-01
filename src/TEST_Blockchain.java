@@ -1,12 +1,29 @@
 public class TEST_Blockchain {
 	
-	public static void main(String[] args) {		
-		genWrong();
-		
-		genGood();
+	static private Blockchain goodBlockchain;
+	static private Blockchain badBlockchain;
+	
+	static {
+		goodBlockchain = genGood();
+		badBlockchain = genWrong();
 	}
 	
-	public static void genWrong() {
+	public static void main(String[] args) {		
+		
+		// Test good blockchain
+		System.out.println(goodBlockchain.validateBlock(goodBlockchain.getBlock("00002f2e93b80b310713d790b96839f8ad3892e6790568182926db9913764c61")));
+		System.out.println(goodBlockchain.validateBlockchain());
+		
+		goodBlockchain.printBlocks();
+		
+		// Test bad blockchain
+		System.out.println(badBlockchain.validateBlock(badBlockchain.getBlock("00002f2e93b80b310713d790b96839f8ad3892e6790568182926db9913764c61")));
+		System.out.println(badBlockchain.validateBlockchain());
+		
+		badBlockchain.printBlocks();		
+	}
+	
+	public static Blockchain genWrong() {
 		Blockchain blockchain = new Blockchain(4);
 		
 		Block newBlock = new Block(
@@ -39,13 +56,10 @@ public class TEST_Blockchain {
 		newBlock.mineBlock(blockchain.difficulty);
 		blockchain.addBlock(newBlock);
 		
-		//System.out.println(blockchain.validateBlock(blockchain.get("0000941f6ff34158d71309c93e7a34be0a910cebd6de2cbc23c621429edc3d9c")));
-		System.out.println(blockchain.validateBlockchain());
-		
-		blockchain.printBlocks();
+		return blockchain;
 	}
 	
-	public static void genGood() {
+	public static Blockchain genGood() {
 		Blockchain blockchain = new Blockchain(4);
 		
 		Block newBlock = new Block(
@@ -76,9 +90,6 @@ public class TEST_Blockchain {
 		newBlock.mineBlock(blockchain.difficulty);
 		blockchain.addBlock(newBlock);
 
-		//System.out.println(blockchain.validateBlock(blockchain.get("0000941f6ff34158d71309c93e7a34be0a910cebd6de2cbc23c621429edc3d9c")));
-		System.out.println(blockchain.validateBlockchain());
-		
-		blockchain.printBlocks();
+		return blockchain;
 	}
 }
